@@ -4,20 +4,26 @@
 #include <random>
 #include "SDL.h"
 #include "controller.h"
+#include "level.h"
 #include "renderer.h"
 #include "snake.h"
 
-class Game {
- public:
-  Game(std::size_t grid_width, std::size_t grid_height);
+class Game
+{
+public:
+  Game(
+      std::size_t grid_width,
+      std::size_t grid_height,
+      std::vector<std::unique_ptr<Level>> &levels);
   void Run(Controller const &controller, Renderer &renderer,
            std::size_t target_frame_duration);
   int GetScore() const;
   int GetSize() const;
 
- private:
+private:
   Snake snake;
   SDL_Point food;
+  std::vector<std::unique_ptr<Level>> &levels;
 
   std::random_device dev;
   std::mt19937 engine;
