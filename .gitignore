@@ -1,3 +1,4 @@
 .github/**
 build/**
 *.code-workspace
+.vscode/**
