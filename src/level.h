@@ -45,8 +45,8 @@ private:
 class LevelLoader
 {
 public:
-    LevelLoader(size_t game_height, size_t game_width)
-        : _game_dimensions{game_height, game_width} {}
+    LevelLoader(std::size_t game_width, std::size_t game_height)
+        : _game_dimensions{game_width, game_height} {}
 
     std::vector<std::unique_ptr<Level>> LoadLevelsFromDirectory(
         std::string directory_path);

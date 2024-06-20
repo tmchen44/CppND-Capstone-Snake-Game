@@ -1,8 +1,10 @@
 #include <iostream>
 #include "controller.h"
-#include "game.h"
-#include "renderer.h"
 #include "level.h"
+#include "renderer.h"
+#include "scene.h"
+#include "scene_manager.h"
+#include "SDL.h"
 
 int main()
 {
@@ -14,16 +16,19 @@ int main()
   constexpr std::size_t kGridHeight{32};
   const std::string kLevelDirectory{"../assets/levels"};
 
-  LevelLoader loader(kGridHeight, kGridWidth);
+  LevelLoader loader(kGridWidth, kGridHeight);
   std::vector<std::unique_ptr<Level>> levels =
       loader.LoadLevelsFromDirectory(kLevelDirectory);
 
   Renderer renderer(kScreenWidth, kScreenHeight, kGridWidth, kGridHeight);
   Controller controller;
-  Game game(kGridWidth, kGridHeight, levels);
-  game.Run(controller, renderer, kMsPerFrame);
+  GameState state(kGridWidth, kGridHeight, levels);
+
+  SceneManager scene_manager;
+  scene_manager.Run(controller, state, renderer, kMsPerFrame);
+
   std::cout << "Game has terminated successfully!\n";
-  std::cout << "Score: " << game.GetScore() << "\n";
-  std::cout << "Size: " << game.GetSize() << "\n";
+  std::cout << "Latest Score: " << state.GetScore() << "\n";
+  std::cout << "Latest Size: " << state.GetSize() << "\n";
   return 0;
 }
