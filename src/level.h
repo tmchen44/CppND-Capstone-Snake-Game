@@ -1,19 +1,19 @@
 #ifndef LEVEL_H
 #define LEVEL_H
 
-#include "types.h"
-
-#include <exception>
 #include <filesystem>
 #include <memory>
 #include <string>
 #include <unordered_map>
 #include <vector>
 
+#include "types.h"
+
 class Level
 {
 public:
     // Getters/setters
+    std::string GetName() { return _name; }
 
     // Returns flattened representation of the Level.
     std::vector<GridContent> AsFlattened() { return _flattened; }
@@ -22,7 +22,6 @@ public:
     GetIndicesByGridContent() { return _indices_by_grid_content; }
 
     // Behavioral methods
-
     void InitLevel(
         std::string name,
         Dimension level_dimensions,

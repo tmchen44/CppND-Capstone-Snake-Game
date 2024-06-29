@@ -2,9 +2,13 @@
 #define GAME_STATE_H
 
 #include <random>
-#include "level.h"
+
 #include "SDL.h"
+
+#include "level.h"
+#include "shared_queue.h"
 #include "snake.h"
+#include "types.h"
 
 // Class representing the state of the game.
 class GameState
@@ -12,7 +16,8 @@ class GameState
 public:
     GameState(std::size_t grid_width,
               std::size_t grid_height,
-              std::vector<std::unique_ptr<Level>> &levels);
+              std::vector<std::unique_ptr<Level>> &levels,
+              SharedQueue<SaveData> &save_queue);
 
     // Game-related
     void ResetGame();
@@ -24,7 +29,7 @@ public:
     SDL_Point &GetFood() { return food; }
 
     bool IsRunning() { return running; }
-    void StopGame() { running = false; }
+    void StopGame();
 
     // Score-related.
     int GetScore() const { return score; }
@@ -42,6 +47,7 @@ public:
 
 private:
     void ResetScore() { score = 0; }
+    std::string GetLocalDateAndTime();
 
     Snake snake;
     SDL_Point food;
@@ -59,6 +65,9 @@ private:
 
     // Read-only vector of all levels.
     std::vector<std::unique_ptr<Level>> &levels;
+
+    // Queue to push save requests onto.
+    SharedQueue<SaveData> &save_queue;
 };
 
 #endif

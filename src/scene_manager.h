@@ -1,16 +1,15 @@
 #ifndef SCENE_MANAGER_H
 #define SCENE_MANAGER_H
 
-#include "controller.h"
-#include "scene.h"
-#include "types.h"
-
-#include <exception>
 #include <filesystem>
 #include <memory>
 #include <string>
 #include <unordered_map>
 #include <vector>
+
+#include "controller.h"
+#include "scene.h"
+#include "types.h"
 
 // Top-level class that manages all Scenes.
 class SceneManager

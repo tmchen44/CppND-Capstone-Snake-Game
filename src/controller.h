@@ -1,8 +1,8 @@
 #ifndef CONTROLLER_H
 #define CONTROLLER_H
 
-#include "snake.h"
 #include "scene.h"
+#include "snake.h"
 
 class Controller
 {

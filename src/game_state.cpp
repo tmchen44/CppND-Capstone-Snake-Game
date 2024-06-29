@@ -1,15 +1,21 @@
 #include "game_state.h"
 
+#include <chrono>
+#include <ctime>
+#include <iostream>
 #include <unordered_set>
+
 #include "conversions.h"
 
 GameState::GameState(
     std::size_t grid_width,
     std::size_t grid_height,
-    std::vector<std::unique_ptr<Level>> &levels)
+    std::vector<std::unique_ptr<Level>> &levels,
+    SharedQueue<SaveData> &save_queue)
     : snake(grid_width, grid_height),
       engine(dev()),
-      levels(levels)
+      levels(levels),
+      save_queue(save_queue)
 {
     ResetViewIndex();
     SetViewLevelAsCurrentLevel();
@@ -63,6 +69,10 @@ void GameState::CheckSnakeCollision()
     if (obstacle_indices.count(head_index) == 1)
     {
         snake.alive = false;
+        std::cout << "Game over. Score: " << score << "\n";
+
+        SaveData save{GetLocalDateAndTime(), current_level->GetName(), score};
+        save_queue.push(std::move(save));
     }
 }
 
@@ -123,9 +133,26 @@ void GameState::UpdateGame()
     }
 }
 
+void GameState::StopGame()
+{
+    running = false;
+}
+
 void GameState::ResetGame()
 {
     ResetScore();
     snake.Reset();
     PlaceFood();
+}
+
+// Returns local date and time as a string in "%F %T %z" format.
+std::string GameState::GetLocalDateAndTime()
+{
+    auto now = std::chrono::system_clock::now();
+    auto time = std::chrono::system_clock::to_time_t(now);
+    char buffer[80];
+    std::strftime(buffer, sizeof(buffer), "%F %T %z", std::localtime(&time));
+    std::string str(buffer);
+
+    return str;
 }

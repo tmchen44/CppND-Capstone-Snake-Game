@@ -1,4 +1,3 @@
-#include "exceptions.h"
 #include "level.h"
 
 #include <algorithm>
@@ -6,9 +5,10 @@
 #include <filesystem>
 #include <fstream>
 #include <future>
-#include <iostream>
 #include <memory>
 #include <string>
+
+#include "exceptions.h"
 
 // Asserts parsed representation with dimensions and additional initialization.
 void Level::InitLevel(
@@ -75,7 +75,6 @@ LevelLoader::LoadLevelFromFile(std::filesystem::path level_path)
     }
     std::vector<GridContent> parsed = GetParsedLevel(file);
     auto l = std::make_unique<Level>();
-    std::cout << "Initializing " << level_path.stem().string() << std::endl;
     l->InitLevel(level_path.stem().string(), _game_dimensions, parsed);
     return l;
 }

@@ -1,12 +1,11 @@
 #ifndef SCENE_H
 #define SCENE_H
 
-#include <iostream>
+#include <utility>
+
 #include "game_state.h"
 #include "renderer.h"
 #include "types.h"
-
-#include <utility>
 
 class Scene
 {

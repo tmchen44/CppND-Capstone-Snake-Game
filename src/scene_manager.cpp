@@ -1,5 +1,6 @@
-#include "types.h"
 #include "scene_manager.h"
+
+#include "types.h"
 
 SceneManager::SceneManager()
     : game_scene(),

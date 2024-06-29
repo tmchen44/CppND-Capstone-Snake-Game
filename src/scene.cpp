@@ -1,7 +1,6 @@
-#include <iostream>
+#include "scene.h"
 
 #include "conversions.h"
-#include "scene.h"
 #include "snake.h"
 #include "types.h"
 
