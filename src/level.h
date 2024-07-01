@@ -48,7 +48,7 @@ public:
         : _game_dimensions{game_width, game_height} {}
 
     std::vector<std::unique_ptr<Level>> LoadLevelsFromDirectory(
-        std::string directory_path);
+        std::filesystem::path directory_path);
     std::unique_ptr<Level> LoadLevelFromFile(std::filesystem::path level_path);
 
 private:

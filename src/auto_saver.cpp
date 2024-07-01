@@ -1,18 +1,20 @@
 #include "auto_saver.h"
 
 #include <chrono>
+#include <filesystem>
+#include <fstream>
 #include <iostream>
+#include <sstream>
 #include <thread>
 
 #include "exceptions.h"
+#include "game_saver.h"
 
-namespace
-{
-    // Finds existing save file or creates
-    void SaveGame(SaveData save);
-}
+// Maximum number of saves to keep in the save file.
+const std::size_t MAX_NUM_SAVES{10};
 
-void WatchForSaves(SharedQueue<SaveData> &queue)
+void WatchForSaves(
+    SharedQueue<SaveData> &queue, std::filesystem::path save_path)
 {
     while (true)
     {
@@ -28,12 +30,7 @@ void WatchForSaves(SharedQueue<SaveData> &queue)
             break;
         }
         std::cout << "Saving " << save.date_time << "\n";
-        SaveGame(save);
+        GameSaver(save, save_path, MAX_NUM_SAVES).Save();
         std::cout << save.date_time << " saved!" << "\n";
     }
-}
-
-namespace
-{
-    void SaveGame(SaveData save) {}
 }

@@ -44,7 +44,7 @@ void Level::SetIndicesByGridContent()
 
 // Creates Levels from the Level text files in a directory.
 std::vector<std::unique_ptr<Level>>
-LevelLoader::LoadLevelsFromDirectory(std::string path)
+LevelLoader::LoadLevelsFromDirectory(std::filesystem::path path)
 {
     std::vector<std::future<std::unique_ptr<Level>>> futures;
     for (const auto &dir_value : std::filesystem::directory_iterator(path))
