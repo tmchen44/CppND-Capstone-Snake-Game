@@ -16,6 +16,8 @@ public:
     }
 };
 
+// This class is inspired by the in-class Udacity MessageQueue and also by this
+// StackOverflow post: https://stackoverflow.com/questions/68055538/how-to-share-mutex-condition-variable-and-queue-between-two-classes-c
 template <class T>
 class SharedQueue
 {
