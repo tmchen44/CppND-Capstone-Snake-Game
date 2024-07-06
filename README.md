@@ -51,7 +51,7 @@ The game has also been extended to allow for custom levels. These can be defined
 
 The new features added to the base game have been briefly mentioned in the above sections. They will now be listed in detail below:
 
-1. The game now supports different "scenes" besides the actual snake game. Currently， besides the actual snake game, only a level select scene exists. But one could imagine other scenes being added, e.g. a high score scene or an options scene.
+1. The game now supports different "scenes" besides the actual snake game. Currently, besides the actual snake game, only a level select scene exists. But one could imagine other scenes being added, e.g. a high score scene or an options scene.
 2. Players can add their own custom levels (represented by text files), which can place obstacles almost anywhere in the 32 by 32 game grid. The food placement algorithm has been updated to not only avoid placing food on the snake itself but also avoid placing food on one of the level obstacles.
 3. Whenever the snake dies (a game "properly" finishes), the results are saved to a text file, which keeps track of the ten latest game results.
 
@@ -61,7 +61,7 @@ See each sub-section below (corresponding to each of the rubric sections) for de
 
 ### Compiling and Testing (All Rubric Points REQUIRED)
 
-Assuming all dependencies have been installed, the code will compile and run according to the build instructions sections above. Please note that the game carries out file directory operations that are specific to Linux, so the game probably will only run correctly in a Linux environment.
+Assuming all dependencies have been installed, the code will compile and run according to the build instructions section above. Please note that the game carries out file directory operations that are specific to Linux, so the game probably will only run correctly in a Linux environment.
 
 ### Loops, Functions, I/O - meet at least 2 criteria
 
@@ -71,7 +71,7 @@ Assuming all dependencies have been installed, the code will compile and run acc
     * This can ben seen in `level.cpp` (`LevelLoader::LoadLevelFromFile`, line 69)
     * This can also be seen in `game_saver.cpp` (`GameSaver::ReadExistingSaveIfExists`, line 34; `GameSaver::WriteSaveFile`, line 76)
 3. The project accepts user input and processes the input.
-    * There is a level select scene, which processes input differently from the snake game scene. There is a new keyboard command abstraction called `Command` (located in `types.h`, line 32). The new level select Commands are processed in `scene.cpp` (`LevelScene::Update`, line 9).
+    * There is a level select scene, which processes input differently from the snake game scene. There is a new keyboard command abstraction called `Command` (located in `types.h`, line 32). The new level select `Command`s are processed in `scene.cpp` (`LevelScene::Update`, line 9).
 4. The project uses data structures and immutable variables.
     * This can be seen in various places. E.g. `level.cpp` (`Level::LoadLevesFromDirectory`, line 47), `shared_queue.h` (line 70), and `main.cpp` (lines 25-26).
 
