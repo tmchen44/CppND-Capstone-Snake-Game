@@ -74,6 +74,46 @@ Assuming all dependencies have been installed, the code will compile and run acc
     * There is a level select scene, which processes input differently from the snake game scene. There is a new keyboard command abstraction called `Command` (located in `types.h`, line 32). The new level select `Command`s are processed in `scene.cpp` (`LevelScene::Update`, line 9).
 4. The project uses data structures and immutable variables.
     * This can be seen in various places. E.g. `level.cpp` (`Level::LoadLevesFromDirectory`, line 47), `shared_queue.h` (line 70), and `main.cpp` (lines 25-26).
+  
+### Object Oriented Programming - meet at least 3 criteria
+
+1. One or more classes are added to the project with appropriate access specifiers for class members.
+    * See `shared_queue.h`, `scene.h`, `level.h`, all of which contain new classes with access specifiers.
+2. Class constructors utilize member initialization lists.
+    * See `game_saver.cpp` (`GameSaver::GameSaver`, line 10).
+    * See `scene_manager.cpp` (`SceneManager::SceneManager`, line 5)
+3. Classes abstract implementation details from their interfaces.
+    * See `scene_manager.h` and `shared_queue.h`
+4. Classes follow an appropriate inheritance hierarchy with virtual and override functions.
+    * See `scene.h`
+5. Templates generalize functions or classes in the project.
+    * See `shared_queue.h`
+
+### Memory Management - meet at least 3 criteria
+
+1. The project makes use of references in function declarations.
+    * See `level.h` (`Level::InitLevel`, line 28; `Level::GetParsedLevel`, line 58)
+    * See `auto_saver.h` (`WatchForSaves`, line 12)
+2. The project uses scope / Resource Acquisition Is Initialization (RAII) where appropriate.
+    * See `shared_queue.h`, where resources shared between threads are enclosed/managed entirely within a class and its members.
+    * See `scene_manager.cpp`, where Scene instances are managed within the scope of SceneManager.
+3. The project uses move semantics to move data instead of copying it, where possible.
+    * See `game_state.cpp` (`GameState::CheckSnakeCollision`, line 75)
+    * See `level.cpp` (`LevelLoader::LoadLevelsFromDirectory`, line 55)`
+    * See `shared_queue.h` (`SharedQueue::push`, line 29)`
+4. The project uses smart pointers instead of raw pointers.
+    * See `level.cpp` (`LevelLoader::LoadLevelFromFile`, line 77)
+
+### Concurrency - meet at least 2 criteria
+
+1. The project uses multithreading.
+    * See `main.cpp` (lines 35, 49), where a child thread is spawned to watch for incoming SaveData and save it to a text file while the parent thread runs the actual game.
+2. A promise and future is used in the project.
+    * See `level.cpp` (`LevelLoader::LoadLevelsFromDirectory`), where std::async and std::future are used to load levels asynchronously.
+3. A mutex or lock is used in the project.
+    * See `shared_queue.h` (lines 68, 26, 37, 60), where a mutex and appropriate locks are used to guard against race conditions that would arise during the reading or modifying of shared resources.
+4. A condition variable is used in the project.
+    * See `shared_queue.h` (lines 69, 31, 38, 64), where a condition variable is used to signal resource availability to threads.
 
 ## CC Attribution-ShareAlike 4.0 International
 

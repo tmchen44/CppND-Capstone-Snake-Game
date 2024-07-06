@@ -16,9 +16,12 @@ class SceneManager
 {
 public:
     SceneManager();
-    // Behavioral methods
+    // Checks if the current Command and Scene warrants a Scene change, and
+    // makes any necessary changes to GameState on Scene change.
     void CheckSceneTransition(GameState &game_state);
+    // Changes the current scene.
     void ChangeScene(Scene *new_scene);
+    // Runs the game loop.
     void Run(Controller const &controller,
              GameState &game_state,
              Renderer &renderer,
